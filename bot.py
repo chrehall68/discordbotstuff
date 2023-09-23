@@ -3,6 +3,7 @@
 import discord
 from discord.ext import commands
 from embed_cog import EmbedCog
+from censor_cog import CensorCog
 import dotenv
 import os
 
@@ -13,11 +14,14 @@ intents.message_content = True
 
 bot = commands.Bot("$", intents=intents)
 
+censor = CensorCog(bot)
 
 @bot.event
 async def on_ready():
     print(f"We have logged in as {bot.user}")
     await bot.add_cog(EmbedCog(bot))
+    await bot.add_cog(censor)
+    print("all cogs loaded!")
 
 
 @bot.command(name="hello")
